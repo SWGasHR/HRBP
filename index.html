@@ -662,16 +662,12 @@
       font-style: italic;
     }
 
-    /* --- ARCHIVE DROPDOWN INSIDE PROJECTS --- */
-    .archive-divider {
-      margin-top: 8px;
-    }
-
-    .archive-toggle {
+    /* --- COLLAPSIBLE PROJECT GROUPS --- */
+    .project-group-toggle,
+    .project-subgroup-toggle {
       width: 100%;
       border: none;
-      background: #f7f7f7;
-      color: #666;
+      background: white;
       cursor: pointer;
       font-family: inherit;
       text-align: left;
@@ -679,21 +675,150 @@
       align-items: center;
       justify-content: space-between;
       box-sizing: border-box;
-      padding: 10px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    .archive-toggle:hover,
-    .archive-toggle:focus {
+    .project-group-toggle {
+      padding: 12px 16px 8px 16px;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #252763;
+      text-transform: none;
+      letter-spacing: 0.1px;
+      border-top: 1px solid #e9e9e9;
+    }
+
+    .project-group-toggle:hover,
+    .project-group-toggle:focus {
+      background: #f3f4f6;
+      color: #252763;
+      outline: none;
+    }
+
+    .project-subgroup-toggle {
+      padding: 10px 16px 10px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #333;
+      background: white;
+    }
+
+    .project-subgroup-toggle:hover,
+    .project-subgroup-toggle:focus {
+      background: #f3f4f6;
+      color: #252763;
+      outline: none;
+    }
+
+    .project-subgroup-toggle[data-project-section-label="All Projects"] {
+      font-weight: 700;
+      color: #666;
+      background: #f7f7f7;
+    }
+
+    .project-subgroup-toggle[data-project-section-label="All Projects"]:hover,
+    .project-subgroup-toggle[data-project-section-label="All Projects"]:focus {
       background: #e8e9fb;
       color: #252763;
       outline: none;
     }
 
-    .archive-caret {
+    .project-group-content,
+    .project-subgroup-content {
+      display: none;
+    }
+
+    .project-group-content.open,
+    .project-subgroup-content.open {
+      display: block;
+    }
+
+    .project-caret {
       font-size: 11px;
+      line-height: 1;
+      margin-left: 10px;
+      color: inherit;
+    }
+
+    .project-subgroup-content .project-view-link {
+      padding-left: 38px;
+    }
+
+    .project-group-content > .project-view-link {
+      padding-left: 24px;
+    }
+
+
+    /* --- ARCHIVE SUB-DROPDOWN INSIDE EACH DEPARTMENT --- */
+    .archive-section {
+      margin: 7px 12px 11px 18px;
+      border: 1px solid #dedff0;
+      border-radius: 9px;
+      background: #fbfbfe;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(37, 39, 99, 0.06);
+    }
+
+    .archive-divider {
+      display: none !important;
+    }
+
+    .archive-toggle {
+      width: 100%;
+      border: none;
+      background: #f4f5fb;
+      color: #4f5278;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 9px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .archive-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .archive-icon {
+      width: 17px;
+      height: 17px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 17px;
+      color: #6c6f94;
+    }
+
+    .archive-icon svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .archive-toggle:hover,
+    .archive-toggle:focus,
+    .archive-toggle[aria-expanded="true"] {
+      background: #e9eafa;
+      color: #252763;
+      outline: none;
+    }
+
+    .archive-caret {
+      font-size: 10px;
       line-height: 1;
       margin-left: 10px;
       color: inherit;
@@ -701,6 +826,8 @@
 
     .archive-content {
       display: none;
+      border-top: 1px solid #e6e7f2;
+      background: #ffffff;
     }
 
     .archive-content.open {
@@ -708,21 +835,29 @@
     }
 
     .archive-content .project-view-link {
-      padding-left: 32px;
-      color: #555;
+      padding: 9px 12px 9px 36px;
+      color: #555875;
+      font-size: 13.5px;
+      border-bottom: 1px solid #f0f0f6;
+    }
+
+    .archive-content .project-view-link:last-child {
+      border-bottom: none;
     }
 
     .archive-content .project-view-link:hover {
       color: #252763;
+      background: #f5f5fb;
     }
 
     .archive-empty-message {
-      padding: 10px 16px 10px 32px;
-      color: #777;
-      font-size: 14px;
+      padding: 9px 12px 10px 36px;
+      color: #85879b;
+      font-size: 12.5px;
       font-style: italic;
       cursor: default;
       user-select: none;
+      background: #ffffff;
     }
 
     /* --- RED WARNING BAR --- */
@@ -1200,7 +1335,7 @@
 
         <div class="dropdown">
           <div class="dropdown-toggle" id="projectDropdownToggle" tabindex="0">
-            <span id="projectDropdownLabel">Projects</span> <span class="caret">▼</span>
+            <span id="projectDropdownLabel">All Projects</span> <span class="caret">▼</span>
           </div>
 
           <div class="dropdown-menu">
@@ -1240,7 +1375,6 @@
             <a href="https://swgashr.github.io/Benefits">Benefits</a>
             <a href="https://swgashr.github.io/Compensation">Compensation</a>
             <a href="https://swgashr.github.io/DEI">DE&I</a>
-            <a href="https://swgashr.github.io/HRLO">HRLO</a>
             <a href="https://swgashr.github.io/Employee-Experience">Employee Experience</a>
             <a href="https://swgashr.github.io/HRBP">HRBP</a>
             <a href="https://swgashr.github.io/HRCM">HRCM</a>
@@ -1480,13 +1614,17 @@
         HOW TO USE THIS TEMPLATE
         1. Change departmentName and departmentSharePointUrl.
         2. Paste the department-specific Smartsheet published links under views.
-        3. Keep BAU first, then replace the five active project templates as needed.
-        4. Replace or rename the five archive templates when you need archived projects.
-        5. Set visible: true to show a project, or visible: false to keep it hidden.
-        6. Keep id values lowercase with dashes only. Example: "open-enrollment-2026".
-        7. Use "(Department Name)" in labels when you want the template to auto-fill the department name.
-        8. Active projects preload after the first page loads; archive projects do not preload.
-        9. All HR Personal Tasks opens in a new tab and is intentionally not preloaded as an iframe.
+        3. Add or update department dropdowns under projectGroups.
+        4. Keep each project id unique across all departments.
+        5. Every project must include visible: true or visible: false. Use true to show it and false to keep it hidden.
+        6. Set openByDefault: true on any department that should start expanded; use false to start collapsed.
+        7. Set embed: true on a department to open every project in that department inside this portal as iframe views.
+           Set embed: false to make every project in that department open as normal same-tab links.
+        8. Set preload: true on a department to preload all visible active projects in that department.
+           Department preload only works when embed: true. Archive projects never preload.
+        9. Replace INSERT_... placeholder links before making a template visible.
+        10. Use "(Department Name)" in labels when you want the template to auto-fill the department name.
+        11. All HR Personal Tasks opens in a new tab and is intentionally not preloaded as an iframe.
       */
 
       portalTitle: "HRBP Project Portal",
@@ -1502,103 +1640,257 @@
           label: "Home",
           embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=a08ad990af604a578a070e2fb37bdd5c",
           viewOnlyNote: false,
-          refreshNote: true
+          refreshNote: true,
+          preload: true
         },
 
         mainInitiatives: {
           label: "HRBP Main Initiatives",
           embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=1cd7570b643d48beb47669e64a62ddb7",
           viewOnlyNote: false,
-          refreshNote: true
+          refreshNote: true,
+          preload: true
         },
 
         allDepartmentProjects: {
           label: "All HRBP Projects (View Only)",
           embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=60c315971bf0434f99c20e0ad7c209ae",
           viewOnlyNote: true,
-          refreshNote: false
+          refreshNote: false,
+          preload: true
         }
       },
 
-      projects: [
-        /*
-          Keep BAU first. Then use the five project template slots below
-          for active department projects. Active projects are included in
-          the preload list after the first page loads.
-        */
-        {
-          id: "bau",
-          label: "BAU",
-          embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=9fa3c4a5dcc24a1da11ece562921c7c5",
-          visible: true
+      projectGroups: [
+{
+          label: "Benefits",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-benefits", label: "Short-Term Projects (Benefits)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=d575dd0772a144f3b5e57aa51803d403", visible: true },
+            { id: "open enrollment 2026", label: "Open Enrollment 2026", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=379a936b6187472faf634ba8aaf80c8b", visible: true },
+            { id: "benefits-project-template-1", label: "Project Template 1", embedSrc: "INSERT_BENEFITS_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "benefits-project-template-2", label: "Project Template 2", embedSrc: "INSERT_BENEFITS_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "benefits-project-template-3", label: "Project Template 3", embedSrc: "INSERT_BENEFITS_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "benefits-project-template-4", label: "Project Template 4", embedSrc: "INSERT_BENEFITS_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-benefits", label: "Short-Term Projects Archive (Benefits)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "open enrollment 2025", label: "Open Enrollment 2025", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=e606315264984f84bd6e288a6871ec5a", visible: true },
+            { id: "benefits-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_BENEFITS_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false},
+            { id: "benefits-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_BENEFITS_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "benefits-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_BENEFITS_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "benefits-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_BENEFITS_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "form 185.2",
-          label: "Form 185.2",
-          embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=9185a65e98384b469d5f88cc765c3b55",
-          visible: true
+{
+          label: "Compensation",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-compensation", label: "Short-Term Projects (Compensation)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=2e0fb8962bb6449cad85da6fd92c626a", visible: true },
+            { id: "promotion-timeline-changes", label: "Promotion Timeline Changes", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=4b61b07051704901992629b165e5ae4a", visible: true },
+            { id: "compensation-project-template-2", label: "Project Template 2", embedSrc: "INSERT_COMPENSATION_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "compensation-project-template-3", label: "Project Template 3", embedSrc: "INSERT_COMPENSATION_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "compensation-project-template-4", label: "Project Template 4", embedSrc: "INSERT_COMPENSATION_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-compensation", label: "Short-Term Projects Archive (Compensation)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "compensation-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_COMPENSATION_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "compensation-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_COMPENSATION_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "compensation-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_COMPENSATION_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "compensation-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_COMPENSATION_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "project-template-2",
-          label: "Project Template 2",
-          embedSrc: "INSERT_PROJECT_TEMPLATE_2_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "DE&I",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-dei", label: "Short-Term Projects (DE&I)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=ab57594639f5477b8cf810217530e5e9", visible: true },
+            { id: "dei-project-template-1", label: "Project Template 1", embedSrc: "INSERT_DEI_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "dei-project-template-2", label: "Project Template 2", embedSrc: "INSERT_DEI_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "dei-project-template-3", label: "Project Template 3", embedSrc: "INSERT_DEI_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "dei-project-template-4", label: "Project Template 4", embedSrc: "INSERT_DEI_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-dei", label: "Short-Term Projects Archive (DE&I)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "dei-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_DEI_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "dei-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_DEI_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "dei-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_DEI_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "dei-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_DEI_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "project-template-3",
-          label: "Project Template 3",
-          embedSrc: "INSERT_PROJECT_TEMPLATE_3_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "Employee Experience",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-ex", label: "Short-Term Projects (EX)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=5c7efc0357a5471f8559cde63936a16f", visible: true },
+            { id: "employee-experience-project-template-5", label: "Project Template 5", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_PROJECT_TEMPLATE_5_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-project-template-1", label: "Project Template 1", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-project-template-2", label: "Project Template 2", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-project-template-3", label: "Project Template 3", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-project-template-4", label: "Project Template 4", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-ex", label: "Short-Term Projects Archive (EX)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "tyctwd-2026", label: "TYCTWD (2026)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=d47cd6a5a19f4c5f92e94a813dcc3be0", visible: true },
+            { id: "employee-experience-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "employee-experience-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_EMPLOYEE_EXPERIENCE_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "project-template-4",
-          label: "Project Template 4",
-          embedSrc: "INSERT_PROJECT_TEMPLATE_4_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "HRBP",
+          openByDefault: true,
+          embed: true,
+          preload: true,
+          projects: [
+            { id: "short-term-projects-hrbp", label: "Short-Term Projects (HRBP)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=9fa3c4a5dcc24a1da11ece562921c7c5", visible: true },
+            { id: "form-185.2-project-plan", label: "Form 185.2 Project Plan", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=9185a65e98384b469d5f88cc765c3b55", visible: true },
+            { id: "hrbp-project-template-2", label: "Project Template 2", embedSrc: "INSERT_HRBP_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrbp-project-template-3", label: "Project Template 3", embedSrc: "INSERT_HRBP_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrbp-project-template-4", label: "Project Template 4", embedSrc: "INSERT_HRBP_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-hrbp", label: "Short-Term Projects Archive (HRBP)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "hrbp-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_HRBP_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrbp-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_HRBP_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrbp-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_HRBP_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "hrbp-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_HRBP_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "project-template-5",
-          label: "Project Template 5",
-          embedSrc: "INSERT_PROJECT_TEMPLATE_5_EMBED_LINK_HERE",
-          visible: false
-        }
-      ],
-
-      archiveProjects: [
-        /*
-          Archived project templates show in the Archive section when
-          visible is true. Archived projects intentionally do not preload;
-          they load only when selected from the Archive dropdown.
-        */
-        {
-          id: "archive-template-1",
-          label: "Archive Template 1",
-          embedSrc: "INSERT_ARCHIVE_TEMPLATE_1_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "HR Change Management",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-hrcm", label: "Short-Term Projects (HRCM)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=b57a2524e6144de2a06b6fd3eb60faa7", visible: true },
+            { id: "evp-rollout-plan", label: "EVP Rollout Plan", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=de1146e552624a2dbc19ab8821465d03", visible: true },
+            { id: "hr-change-management-project-template-1", label: "Project Template 1", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-project-template-2", label: "Project Template 2", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-project-template-3", label: "Project Template 3", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-project-template-4", label: "Project Template 4", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-hrcm", label: "Short-Term Projects Archive (HRCM)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "hr-change-management-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "hr-change-management-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_HR_CHANGE_MANAGEMENT_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "archive-template-2",
-          label: "Archive Template 2",
-          embedSrc: "INSERT_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "HRS",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-hrs", label: "Short-Term Projects (HRS)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=54bbc1becb764181b981021e4f5bcc99", visible: true },
+            { id: "hrs-project-template-1", label: "Project Template 1", embedSrc: "INSERT_HRS_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-project-template-2", label: "Project Template 2", embedSrc: "INSERT_HRS_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-project-template-3", label: "Project Template 3", embedSrc: "INSERT_HRS_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-project-template-4", label: "Project Template 4", embedSrc: "INSERT_HRS_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-hrs", label: "Short-Term Projects Archive (HRS)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "hrs-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_HRS_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_HRS_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_HRS_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "hrs-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_HRS_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "archive-template-3",
-          label: "Archive Template 3",
-          embedSrc: "INSERT_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "HRSS",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-hrss", label: "Short-Term Projects (HRSS)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=c10a615ed1464de49c96d275592e908d", visible: true },
+            { id: "hrsss-specialists-training-plan-kayle", label: "HRSS Specialists Training Plan Kayle", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=989958f443b1469ebc356286b32263dc", visible: true },
+            { id: "hrss-specialists-training-plan-lori", label: "HRSS Specialists Training Plan Lori", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=1c4f79dfca7f469e9c6f73b9595dfede", visible: true },
+            { id: "ta-hrss-systems", label: "TA / HRSS Systems", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=333559a0c5a547b7b54b316ad6c79150", visible: true },
+            { id: "hrss-project-template-2", label: "Project Template 2", embedSrc: "INSERT_HRSS_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrss-project-template-3", label: "Project Template 3", embedSrc: "INSERT_HRSS_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrss-project-template-4", label: "Project Template 4", embedSrc: "INSERT_HRSS_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-hrss", label: "Short-Term Projects Archive (HRSS)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "hrss-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_HRSS_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "hrss-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_HRSS_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "hrss-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_HRSS_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "hrss-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_HRSS_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "archive-template-4",
-          label: "Archive Template 4",
-          embedSrc: "INSERT_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "Labor Relations",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-labor-relations", label: "Short-Term Projects (LR)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=3b119c94e2a54f4585a838bf6e4bce00", visible: true },
+            { id: "readiness", label: "Readiness", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=cd4faaab81c04c92b07b3f46adf80d68", visible: true },
+            { id: "summer-intern-projects", label: "Summer Intern Projects", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=be3638b35df84dcea0ee453384cb00e1", visible: true },
+            { id: "labor-relations-project-template-2", label: "Project Template 2", embedSrc: "INSERT_LABOR_RELATIONS_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "labor-relations-project-template-3", label: "Project Template 3", embedSrc: "INSERT_LABOR_RELATIONS_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "labor-relations-project-template-4", label: "Project Template 4", embedSrc: "INSERT_LABOR_RELATIONS_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-lr", label: "Short-Term Projects Archive (LR)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "labor-relations-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_LABOR_RELATIONS_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "labor-relations-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_LABOR_RELATIONS_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "labor-relations-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_LABOR_RELATIONS_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "labor-relations-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_LABOR_RELATIONS_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         },
-        {
-          id: "archive-template-5",
-          label: "Archive Template 5",
-          embedSrc: "INSERT_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE",
-          visible: false
+{
+          label: "Talent Acquisition",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-talent-acquisition", label: "Short-Term Projects (TA)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=6971c2f6cbd64b4390af95b58670c485", visible: true },
+            { id: "candidate-assessment-process", label: "Candidate Assessment Process", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=b92ed59874604dea8f2b0215a258d528", visible: true },
+            { id: "talent-acquisition-project-template-1", label: "Project Template 1", embedSrc: "INSERT_TALENT_ACQUISITION_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-project-template-2", label: "Project Template 2", embedSrc: "INSERT_TALENT_ACQUISITION_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-project-template-3", label: "Project Template 3", embedSrc: "INSERT_TALENT_ACQUISITION_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-project-template-4", label: "Project Template 4", embedSrc: "INSERT_TALENT_ACQUISITION_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-ta", label: "Short-Term Projects Archive (TA)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "talent-acquisition-archive-template-2", label: "Project Template 2", embedSrc: "INSERT_TALENT_ACQUISITION_ARCHIVE_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_TALENT_ACQUISITION_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_TALENT_ACQUISITION_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "talent-acquisition-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_TALENT_ACQUISITION_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
+        },
+{
+          label: "Talent Development",
+          openByDefault: false,
+          embed: true,
+          preload: false,
+          projects: [
+            { id: "short-term-projects-talent-development", label: "Short-Term Projects (TD)", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=00df3436d89e46f8be081df151c0b3a5", visible: true },
+            { id: "competency-configuration-rollout-plan", label: "Competency Configuration / Rollout Plans", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=a32b2110d3d5400dac1760825bfa6281", visible: true },
+            { id: "succession-planning-and-development-plans", label: "Succession Planning & Development Plans", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=b28d26edde0145d9ab91518a807c04fc", visible: true },
+            { id: "talent-development-project-template-1", label: "Project Template 1", embedSrc: "INSERT_TALENT_DEVELOPMENT_PROJECT_TEMPLATE_1_EMBED_LINK_HERE", visible: false },
+            { id: "talent-development-project-template-2", label: "Project Template 2", embedSrc: "INSERT_TALENT_DEVELOPMENT_PROJECT_TEMPLATE_2_EMBED_LINK_HERE", visible: false },
+            { id: "talent-development-project-template-3", label: "Project Template 3", embedSrc: "INSERT_TALENT_DEVELOPMENT_PROJECT_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "talent-development-project-template-4", label: "Project Template 4", embedSrc: "INSERT_TALENT_DEVELOPMENT_PROJECT_TEMPLATE_4_EMBED_LINK_HERE", visible: false }
+          ],
+          archiveProjects: [
+            { id: "short-term-projects-archive-td", label: "Short-Term Projects Archive (TD)", embedSrc: "INSERT_LINK_HERE", visible: true },
+            { id: "elo transition plan", label: "ELO Transition Plan", embedSrc: "https://app.smartsheet.com/b/publish?EQBCT=46376cb1ff6e47bf9b7ed1e62019ecd7", visible: true },
+            { id: "talent-development-archive-template-3", label: "Project Template 3", embedSrc: "INSERT_TALENT_DEVELOPMENT_ARCHIVE_TEMPLATE_3_EMBED_LINK_HERE", visible: false },
+            { id: "talent-development-archive-template-4", label: "Project Template 4", embedSrc: "INSERT_TALENT_DEVELOPMENT_ARCHIVE_TEMPLATE_4_EMBED_LINK_HERE", visible: false },
+            { id: "talent-development-archive-template-5", label: "Project Template 5", embedSrc: "INSERT_TALENT_DEVELOPMENT_ARCHIVE_TEMPLATE_5_EMBED_LINK_HERE", visible: false }
+          ]
         }
       ]
     };
@@ -1787,24 +2079,22 @@
       const routes = [];
 
       Object.keys(PORTAL_CONFIG.views).forEach(function(viewId) {
-        routes.push({
-          type: "view",
-          id: viewId
-        });
+        const view = PORTAL_CONFIG.views[viewId];
+
+        if (view && view.preload === true) {
+          routes.push({
+            type: "view",
+            id: viewId
+          });
+        }
       });
 
-      getVisibleProjects().forEach(function(project) {
+      getPreloadableProjects().forEach(function(project) {
         routes.push({
           type: "project",
           id: project.id
         });
       });
-
-      /*
-        Important: archived projects are intentionally excluded from the
-        preload list. They remain clickable from the Archive section and
-        load only when selected.
-      */
 
       return routes;
     }
@@ -2358,23 +2648,108 @@
       }
     }
 
-    function isPortalItemVisible(item) {
-      return item && item.visible !== false;
+    function sortItemsByLabel(items) {
+      return (items || []).slice().sort(function(firstItem, secondItem) {
+        const firstLabel = String(firstItem.label || "");
+        const secondLabel = String(secondItem.label || "");
+        const firstIsShortTerm = firstLabel.toLowerCase() === "short-term projects";
+        const secondIsShortTerm = secondLabel.toLowerCase() === "short-term projects";
+
+        if (firstIsShortTerm !== secondIsShortTerm) {
+          return firstIsShortTerm ? -1 : 1;
+        }
+
+        return firstLabel.localeCompare(
+          secondLabel,
+          undefined,
+          { sensitivity: "base", numeric: true }
+        );
+      });
     }
 
-    function getVisibleProjects() {
-      return (PORTAL_CONFIG.projects || []).filter(isPortalItemVisible);
+    function isProjectVisible(project) {
+      /* Every project must explicitly opt in with visible: true. */
+      return Boolean(project) && project.visible === true;
     }
 
-    function getVisibleArchiveProjects() {
-      return (PORTAL_CONFIG.archiveProjects || []).filter(isPortalItemVisible);
+    function getVisibleProjectItems(items) {
+      return (items || []).filter(isProjectVisible);
+    }
+
+    function getAllProjectGroups() {
+      /* Department display order follows the order written in projectGroups. */
+      return (PORTAL_CONFIG.projectGroups || []).slice().filter(function(group) {
+        return group && group.visible !== false && group.visibility !== false;
+      });
+    }
+
+    /*
+      Embedding is controlled once per department.
+      Every project and archive project in the department follows group.embed.
+    */
+    function shouldEmbedProject(project, group) {
+      return Boolean(group && group.embed === true);
+    }
+
+    /* Collect every visible project from departments with embed: true. */
+    function getAllProjects() {
+      const projects = [];
+
+      getAllProjectGroups().forEach(function(group) {
+        function addEmbeddedProjects(items) {
+          getVisibleProjectItems(items).forEach(function(project) {
+            if (shouldEmbedProject(project, group)) {
+              projects.push(project);
+            }
+          });
+        }
+
+        addEmbeddedProjects(group.projects);
+
+        (group.sections || []).forEach(function(section) {
+          addEmbeddedProjects(section.projects);
+        });
+
+        addEmbeddedProjects(group.archiveProjects);
+      });
+
+      return projects;
+    }
+
+    /*
+      Department-level preloading applies only when both group.embed and
+      group.preload are true. It preloads visible active projects and visible
+      section projects. Archive projects are intentionally never preloaded.
+    */
+    function getPreloadableProjects() {
+      const projects = [];
+
+      getAllProjectGroups().forEach(function(group) {
+        if (!(group.embed === true && group.preload === true)) {
+          return;
+        }
+
+        function addPreloadableProjects(items) {
+          getVisibleProjectItems(items).forEach(function(project) {
+            projects.push(project);
+          });
+        }
+
+        addPreloadableProjects(group.projects);
+
+        (group.sections || []).forEach(function(section) {
+          addPreloadableProjects(section.projects);
+        });
+
+        /* Do not add group.archiveProjects here. Archives always load on click. */
+      });
+
+      return projects;
     }
 
     function getProjectById(projectId) {
-      const allProjects = getVisibleProjects().concat(getVisibleArchiveProjects());
-
-      return allProjects.find(function(project) {
-        return project.id === projectId;
+      return getAllProjects().find(function(project) {
+        return isProjectVisible(project) && project.id === projectId;
       });
     }
 
@@ -2491,26 +2866,48 @@
       });
     }
 
-    function createProjectLink(project, isArchiveProject) {
-      const projectLink = document.createElement("a");
+    function createCollapsibleButton(label, level, groupIndex, sectionIndex) {
+      const button = document.createElement("button");
+      const labelSpan = document.createElement("span");
+      const caretSpan = document.createElement("span");
 
-      projectLink.className = isArchiveProject ? "project-view-link archive-project-link" : "project-view-link";
-      projectLink.href = routeHash({
-        type: "project",
-        id: project.id
-      });
-      projectLink.setAttribute("data-project-id", project.id);
+      button.type = "button";
+      button.className = level === "group" ? "project-group-toggle" : "project-subgroup-toggle";
+      button.setAttribute("aria-expanded", "false");
 
-      if (isArchiveProject) {
-        projectLink.setAttribute("data-archive-project", "true");
+      if (level === "group") {
+        button.setAttribute("data-project-group-toggle", String(groupIndex));
+      } else {
+        button.setAttribute("data-project-subgroup-toggle", groupIndex + ":" + sectionIndex);
+        button.setAttribute("data-project-section-label", label);
       }
 
-      projectLink.textContent = project.label;
+      labelSpan.textContent = label;
+      caretSpan.className = "project-caret";
+      caretSpan.textContent = "▶";
 
-      return projectLink;
+      button.appendChild(labelSpan);
+      button.appendChild(caretSpan);
+
+      return button;
     }
 
-    function setArchiveSectionOpen(button, content, shouldOpen) {
+    function setCollapsibleOpen(button, content, shouldOpen) {
+      if (!button || !content) {
+        return;
+      }
+
+      button.setAttribute("aria-expanded", shouldOpen ? "true" : "false");
+      button.querySelector(".project-caret").textContent = shouldOpen ? "▼" : "▶";
+      content.classList.toggle("open", shouldOpen);
+    }
+
+    function toggleCollapsible(button, content) {
+      const shouldOpen = !content.classList.contains("open");
+      setCollapsibleOpen(button, content, shouldOpen);
+    }
+
+    function setArchiveOpen(button, content, shouldOpen) {
       if (!button || !content) {
         return;
       }
@@ -2520,111 +2917,287 @@
       content.classList.toggle("open", shouldOpen);
     }
 
-    function toggleArchiveSection(button, content) {
+    function toggleArchiveOpen(button, content) {
       const shouldOpen = !content.classList.contains("open");
-      setArchiveSectionOpen(button, content, shouldOpen);
+      setArchiveOpen(button, content, shouldOpen);
+    }
+
+    function createProjectLink(project, groupIndex, archiveProject) {
+      const projectLink = document.createElement("a");
+      const projectGroup = getAllProjectGroups()[groupIndex];
+      const shouldEmbedInPortal = shouldEmbedProject(project, projectGroup);
+
+      projectLink.className = archiveProject
+        ? "project-view-link archive-project-link"
+        : "project-view-link";
+      projectLink.setAttribute("data-project-group", String(groupIndex));
+      projectLink.textContent = project.label;
+
+      if (shouldEmbedInPortal) {
+        projectLink.href = routeHash({
+          type: "project",
+          id: project.id
+        });
+        projectLink.setAttribute("data-project-id", project.id);
+        projectLink.setAttribute("data-project-iframe", "true");
+      } else {
+        projectLink.href = project.linkSrc || project.embedSrc || "#";
+        projectLink.classList.add("external-project-link");
+        projectLink.setAttribute("data-project-iframe", "false");
+        projectLink.title = "Open " + project.label;
+      }
+
+      if (archiveProject) {
+        projectLink.setAttribute("data-project-archive", String(groupIndex));
+      }
+
+      return projectLink;
     }
 
     function renderProjectLinks() {
       projectLinksContainer.innerHTML = "";
 
-      getVisibleProjects().forEach(function(project) {
-        projectLinksContainer.appendChild(createProjectLink(project, false));
-      });
+      getAllProjectGroups().forEach(function(group, groupIndex) {
+        const groupButton = createCollapsibleButton(group.label, "group", groupIndex);
+        const groupContent = document.createElement("div");
+        const archiveSection = document.createElement("div");
+        const archiveDivider = document.createElement("div");
+        const archiveButton = document.createElement("button");
+        const archiveLabel = document.createElement("span");
+        const archiveIcon = document.createElement("span");
+        const archiveLabelText = document.createElement("span");
+        const archiveCaret = document.createElement("span");
+        const archiveContent = document.createElement("div");
+        const archiveProjects = getVisibleProjectItems(group.archiveProjects);
 
-      const archiveProjects = getVisibleArchiveProjects();
-      const archiveDivider = document.createElement("div");
-      const archiveButton = document.createElement("button");
-      const archiveLabel = document.createElement("span");
-      const archiveCaret = document.createElement("span");
-      const archiveContent = document.createElement("div");
+        groupContent.className = "project-group-content";
+        groupContent.setAttribute("data-project-group-content", String(groupIndex));
 
-      archiveDivider.className = "dropdown-divider archive-divider";
-
-      archiveButton.type = "button";
-      archiveButton.className = "archive-toggle";
-      archiveButton.setAttribute("aria-expanded", "false");
-      archiveButton.setAttribute("data-archive-toggle", "true");
-
-      archiveLabel.textContent = "Archive";
-      archiveCaret.className = "archive-caret";
-      archiveCaret.textContent = "▶";
-
-      archiveButton.appendChild(archiveLabel);
-      archiveButton.appendChild(archiveCaret);
-
-      archiveContent.className = "archive-content";
-      archiveContent.setAttribute("data-archive-content", "true");
-
-      archiveButton.addEventListener("click", function(event) {
-        event.preventDefault();
-        toggleArchiveSection(archiveButton, archiveContent);
-      });
-
-      if (archiveProjects.length > 0) {
-        archiveProjects.forEach(function(project) {
-          archiveContent.appendChild(createProjectLink(project, true));
+        groupButton.addEventListener("click", function(event) {
+          event.preventDefault();
+          toggleCollapsible(groupButton, groupContent);
         });
-      } else {
-        const emptyArchiveMessage = document.createElement("div");
-        emptyArchiveMessage.className = "archive-empty-message";
-        emptyArchiveMessage.textContent = "No Archived Projects Available";
-        archiveContent.appendChild(emptyArchiveMessage);
-      }
 
-      projectLinksContainer.appendChild(archiveDivider);
-      projectLinksContainer.appendChild(archiveButton);
-      projectLinksContainer.appendChild(archiveContent);
+        projectLinksContainer.appendChild(groupButton);
+        projectLinksContainer.appendChild(groupContent);
+
+        /* Change openByDefault in projectGroups to control the starting caret state. */
+        setCollapsibleOpen(groupButton, groupContent, group.openByDefault === true);
+
+        getVisibleProjectItems(group.projects).forEach(function(project) {
+          groupContent.appendChild(createProjectLink(project, groupIndex, false));
+        });
+
+        (group.sections || []).forEach(function(section, sectionIndex) {
+          const sectionButton = createCollapsibleButton(section.label, "section", groupIndex, sectionIndex);
+          const sectionContent = document.createElement("div");
+
+          sectionContent.className = "project-subgroup-content";
+          sectionContent.setAttribute("data-project-subgroup-content", groupIndex + ":" + sectionIndex);
+
+          sectionButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            toggleCollapsible(sectionButton, sectionContent);
+          });
+
+          groupContent.appendChild(sectionButton);
+          groupContent.appendChild(sectionContent);
+
+          if ((section.label || "").toLowerCase() === "all projects") {
+            setCollapsibleOpen(sectionButton, sectionContent, true);
+          }
+
+          getVisibleProjectItems(section.projects).forEach(function(project) {
+            const projectLink = createProjectLink(project, groupIndex, false);
+            projectLink.setAttribute("data-project-subgroup", groupIndex + ":" + sectionIndex);
+            sectionContent.appendChild(projectLink);
+          });
+        });
+
+        archiveSection.className = "archive-section";
+        archiveSection.setAttribute("data-project-archive-section", String(groupIndex));
+
+        archiveDivider.className = "dropdown-divider archive-divider";
+        archiveDivider.setAttribute("data-project-archive-divider", String(groupIndex));
+
+        archiveButton.type = "button";
+        archiveButton.className = "archive-toggle";
+        archiveButton.setAttribute("aria-expanded", "false");
+        archiveButton.setAttribute("data-project-archive-toggle", String(groupIndex));
+
+        archiveLabel.className = "archive-toggle-label";
+        archiveIcon.className = "archive-icon";
+        archiveIcon.setAttribute("aria-hidden", "true");
+        archiveIcon.innerHTML = '<svg viewBox="0 0 24 24" focusable="false"><path d="M4 7.5h16v12H4z"></path><path d="M7 4.5h10l1 3H6z"></path><path d="M9 11.5h6"></path></svg>';
+        archiveLabelText.textContent = "Archive";
+        archiveLabel.appendChild(archiveIcon);
+        archiveLabel.appendChild(archiveLabelText);
+
+        archiveCaret.className = "archive-caret";
+        archiveCaret.textContent = "▶";
+
+        archiveButton.appendChild(archiveLabel);
+        archiveButton.appendChild(archiveCaret);
+
+        archiveContent.className = "archive-content";
+        archiveContent.setAttribute("data-project-archive-content", String(groupIndex));
+
+        archiveButton.addEventListener("click", function(event) {
+          event.preventDefault();
+          toggleArchiveOpen(archiveButton, archiveContent);
+        });
+
+        if (archiveProjects.length > 0) {
+          archiveProjects.forEach(function(project) {
+            archiveContent.appendChild(createProjectLink(project, groupIndex, true));
+          });
+        } else {
+          const emptyArchiveMessage = document.createElement("div");
+          emptyArchiveMessage.className = "archive-empty-message";
+          emptyArchiveMessage.setAttribute("data-project-archive-empty", String(groupIndex));
+          emptyArchiveMessage.textContent = "No archived projects";
+          archiveContent.appendChild(emptyArchiveMessage);
+        }
+
+        archiveSection.appendChild(archiveDivider);
+        archiveSection.appendChild(archiveButton);
+        archiveSection.appendChild(archiveContent);
+        groupContent.appendChild(archiveSection);
+      });
     }
 
     function filterProjectLinks() {
       const searchTerm = projectSearch.value.trim().toLowerCase();
       const projectLinks = Array.from(projectLinksContainer.querySelectorAll(".project-view-link"));
-      const archiveButton = projectLinksContainer.querySelector("[data-archive-toggle]");
-      const archiveContent = projectLinksContainer.querySelector("[data-archive-content]");
-      const archiveDivider = projectLinksContainer.querySelector(".archive-divider");
+      const groupButtons = Array.from(projectLinksContainer.querySelectorAll("[data-project-group-toggle]"));
+      const groupContents = Array.from(projectLinksContainer.querySelectorAll("[data-project-group-content]"));
+      const sectionButtons = Array.from(projectLinksContainer.querySelectorAll("[data-project-subgroup-toggle]"));
+      const sectionContents = Array.from(projectLinksContainer.querySelectorAll("[data-project-subgroup-content]"));
+      const archiveSections = Array.from(projectLinksContainer.querySelectorAll("[data-project-archive-section]"));
+      const archiveButtons = Array.from(projectLinksContainer.querySelectorAll("[data-project-archive-toggle]"));
+      const archiveContents = Array.from(projectLinksContainer.querySelectorAll("[data-project-archive-content]"));
+      const archiveDividers = Array.from(projectLinksContainer.querySelectorAll("[data-project-archive-divider]"));
+      const emptyArchiveMessages = Array.from(projectLinksContainer.querySelectorAll("[data-project-archive-empty]"));
 
       let visibleCount = 0;
-      let visibleArchiveCount = 0;
+      const visibleGroups = {};
+      const visibleSections = {};
+      const visibleArchives = {};
 
       projectLinks.forEach(function(link) {
         const projectName = link.textContent.toLowerCase();
-        const shouldShow = projectName.includes(searchTerm);
-        const isArchiveProject = link.getAttribute("data-archive-project") === "true";
+        const groupKey = link.getAttribute("data-project-group");
+        const sectionKey = link.getAttribute("data-project-subgroup");
+        const archiveKey = link.getAttribute("data-project-archive");
+        const shouldShow = !searchTerm || projectName.includes(searchTerm);
 
         link.style.display = shouldShow ? "block" : "none";
 
         if (shouldShow) {
           visibleCount += 1;
+          visibleGroups[groupKey] = true;
 
-          if (isArchiveProject) {
-            visibleArchiveCount += 1;
+          if (sectionKey) {
+            visibleSections[sectionKey] = true;
+          }
+
+          if (archiveKey !== null) {
+            visibleArchives[archiveKey] = true;
           }
         }
       });
 
-      if (archiveButton && archiveContent) {
-        if (searchTerm) {
-          const shouldShowArchive = visibleArchiveCount > 0;
+      groupButtons.forEach(function(button) {
+        const groupKey = button.getAttribute("data-project-group-toggle");
+        button.style.display = visibleGroups[groupKey] ? "flex" : "none";
+      });
 
-          archiveButton.style.display = shouldShowArchive ? "flex" : "none";
-          archiveContent.style.display = shouldShowArchive ? "block" : "none";
+      sectionButtons.forEach(function(button) {
+        const sectionKey = button.getAttribute("data-project-subgroup-toggle");
+        button.style.display = !searchTerm || visibleSections[sectionKey] ? "flex" : "none";
+      });
 
-          if (archiveDivider) {
-            archiveDivider.style.display = shouldShowArchive ? "block" : "none";
-          }
+      archiveButtons.forEach(function(button) {
+        const groupKey = button.getAttribute("data-project-archive-toggle");
+        const content = projectLinksContainer.querySelector('[data-project-archive-content="' + groupKey + '"]');
+        const divider = projectLinksContainer.querySelector('[data-project-archive-divider="' + groupKey + '"]');
+        const shouldShowArchive = !searchTerm || visibleArchives[groupKey];
 
-          setArchiveSectionOpen(archiveButton, archiveContent, shouldShowArchive);
-        } else {
-          archiveButton.style.display = "";
-          archiveContent.style.display = "";
+        const section = projectLinksContainer.querySelector('[data-project-archive-section="' + groupKey + '"]');
 
-          if (archiveDivider) {
-            archiveDivider.style.display = "";
-          }
+        button.style.display = shouldShowArchive ? "flex" : "none";
 
-          setArchiveSectionOpen(archiveButton, archiveContent, false);
+        if (section) {
+          section.style.display = shouldShowArchive ? "block" : "none";
         }
+
+        if (divider) {
+          divider.style.display = "none";
+        }
+
+        if (content) {
+          content.style.display = shouldShowArchive ? "" : "none";
+          setArchiveOpen(button, content, Boolean(searchTerm && visibleArchives[groupKey]));
+        }
+      });
+
+      emptyArchiveMessages.forEach(function(message) {
+        message.style.display = searchTerm ? "none" : "block";
+      });
+
+      if (searchTerm) {
+        groupButtons.forEach(function(button) {
+          const groupKey = button.getAttribute("data-project-group-toggle");
+          const content = projectLinksContainer.querySelector('[data-project-group-content="' + groupKey + '"]');
+
+          if (visibleGroups[groupKey]) {
+            setCollapsibleOpen(button, content, true);
+          }
+        });
+
+        sectionButtons.forEach(function(button) {
+          const sectionKey = button.getAttribute("data-project-subgroup-toggle");
+          const content = projectLinksContainer.querySelector('[data-project-subgroup-content="' + sectionKey + '"]');
+
+          if (visibleSections[sectionKey]) {
+            setCollapsibleOpen(button, content, true);
+          }
+        });
+      } else {
+        groupContents.forEach(function(content) {
+          const groupKey = content.getAttribute("data-project-group-content");
+          const button = projectLinksContainer.querySelector('[data-project-group-toggle="' + groupKey + '"]');
+          const group = getAllProjectGroups()[Number(groupKey)];
+          const shouldOpenByDefault = Boolean(group && group.openByDefault === true);
+
+          setCollapsibleOpen(button, content, shouldOpenByDefault);
+          content.style.display = "";
+        });
+
+        sectionContents.forEach(function(content) {
+          const sectionKey = content.getAttribute("data-project-subgroup-content");
+          const button = projectLinksContainer.querySelector('[data-project-subgroup-toggle="' + sectionKey + '"]');
+          const sectionLabel = button ? button.getAttribute("data-project-section-label") : "";
+          const shouldOpenByDefault = (sectionLabel || "").toLowerCase() === "all projects";
+
+          setCollapsibleOpen(button, content, shouldOpenByDefault);
+          content.style.display = "";
+        });
+
+        archiveContents.forEach(function(content) {
+          const groupKey = content.getAttribute("data-project-archive-content");
+          const button = projectLinksContainer.querySelector('[data-project-archive-toggle="' + groupKey + '"]');
+          setArchiveOpen(button, content, false);
+          content.style.display = "";
+        });
+
+        archiveSections.forEach(function(section) {
+          section.style.display = "block";
+        });
+
+        archiveDividers.forEach(function(divider) {
+          divider.style.display = "none";
+        });
       }
 
       noProjectResults.style.display = visibleCount === 0 ? "block" : "none";
@@ -2714,7 +3287,7 @@
       const resolvedPortalTitle = replaceDepartmentName(PORTAL_CONFIG.portalTitle || resolvedDepartmentName + " Project Portal");
 
       document.title = resolvedPortalTitle;
-      projectDropdownLabel.textContent = resolvedDepartmentName + " Projects";
+      projectDropdownLabel.textContent = "All Projects";
 
       if (portalFavicon && SHARED_PORTAL_SETTINGS.faviconFileName) {
         portalFavicon.href = SHARED_PORTAL_SETTINGS.faviconFileName;
@@ -2933,7 +3506,8 @@
       }
 
       const isPortalViewLink = clickedLink.classList.contains("portal-view-link");
-      const isProjectViewLink = clickedLink.classList.contains("project-view-link");
+      const isProjectViewLink = clickedLink.classList.contains("project-view-link") &&
+        clickedLink.getAttribute("data-project-iframe") === "true";
       const isPlaceholderActionLink = clickedLink.classList.contains("placeholder-action-link");
       const isRequestAccessLink = clickedLink.id === "requestAccessLink";
       const href = clickedLink.getAttribute("href");
@@ -3341,6 +3915,140 @@
       }
     }
 
+    /* ==========================================================
+       CONFIGURATION SELF-CHECK
+       Runs whenever the portal opens. It does not change valid settings;
+       it reports configuration mistakes in the browser console so future
+       edits are easier to verify.
+       ========================================================== */
+    function validatePortalConfiguration() {
+      const errors = [];
+      const warnings = [];
+      const seenProjectIds = new Set();
+      const archiveProjectIds = new Set();
+      const groups = Array.isArray(PORTAL_CONFIG.projectGroups)
+        ? PORTAL_CONFIG.projectGroups
+        : [];
+
+      function validateProject(project, locationLabel, isArchive) {
+        if (!project || typeof project !== "object") {
+          errors.push(locationLabel + " contains an invalid project entry.");
+          return;
+        }
+
+        if (typeof project.id !== "string" || project.id.trim() === "") {
+          errors.push(locationLabel + " has a project without a valid id.");
+        } else if (seenProjectIds.has(project.id)) {
+          errors.push('Duplicate project id: "' + project.id + '".');
+        } else {
+          seenProjectIds.add(project.id);
+        }
+
+        if (typeof project.visible !== "boolean") {
+          errors.push((project.id || locationLabel) + " must have visible: true or visible: false.");
+        }
+
+        if (Object.prototype.hasOwnProperty.call(project, "preload")) {
+          errors.push(
+            (project.id || locationLabel) +
+            " has a project-level preload setting. Preload belongs on the department only."
+          );
+        }
+
+        if (isArchive && project.id) {
+          archiveProjectIds.add(project.id);
+        }
+
+        const projectUrl = project.linkSrc || project.embedSrc || "";
+
+        if (project.visible === true && !projectUrl) {
+          errors.push((project.id || locationLabel) + " is visible but has no link.");
+        } else if (project.visible === true && isPlaceholderLink(projectUrl)) {
+          warnings.push((project.id || locationLabel) + " is visible but still uses a placeholder link.");
+        }
+      }
+
+      groups.forEach(function(group, groupIndex) {
+        const groupName = group && group.label
+          ? String(group.label)
+          : "Department " + (groupIndex + 1);
+
+        if (!group || typeof group !== "object") {
+          errors.push(groupName + " is not a valid department configuration.");
+          return;
+        }
+
+        ["openByDefault", "embed", "preload"].forEach(function(settingName) {
+          if (typeof group[settingName] !== "boolean") {
+            errors.push(groupName + " must have " + settingName + ": true or false.");
+          }
+        });
+
+        if (group.preload === true && group.embed !== true) {
+          warnings.push(groupName + " has preload: true, but preload is ignored because embed is false.");
+        }
+
+        (group.projects || []).forEach(function(project) {
+          validateProject(project, groupName + " active projects", false);
+        });
+
+        (group.sections || []).forEach(function(section, sectionIndex) {
+          (section.projects || []).forEach(function(project) {
+            validateProject(
+              project,
+              groupName + " section " + (sectionIndex + 1),
+              false
+            );
+          });
+        });
+
+        (group.archiveProjects || []).forEach(function(project) {
+          validateProject(project, groupName + " archive", true);
+        });
+      });
+
+      const preloadIds = getPreloadableProjects().map(function(project) {
+        return project.id;
+      });
+
+      const archivedPreloadIds = preloadIds.filter(function(projectId) {
+        return archiveProjectIds.has(projectId);
+      });
+
+      if (archivedPreloadIds.length > 0) {
+        errors.push(
+          "Archive projects entered the preload queue: " +
+          archivedPreloadIds.join(", ")
+        );
+      }
+
+      const result = {
+        valid: errors.length === 0,
+        errors: errors,
+        warnings: warnings,
+        departmentCount: groups.length,
+        projectCount: seenProjectIds.size,
+        preloadProjectIds: preloadIds
+      };
+
+      window.PORTAL_CONFIG_VALIDATION = result;
+
+      if (errors.length > 0) {
+        console.error("Portal configuration errors:", errors);
+      }
+
+      if (warnings.length > 0) {
+        console.warn("Portal configuration warnings:", warnings);
+      }
+
+      if (errors.length === 0 && warnings.length === 0) {
+        console.info("Portal configuration validated successfully.", result);
+      }
+
+      return result;
+    }
+
+    validatePortalConfiguration();
     applyConfigToNavigation();
     renderProjectLinks();
     loadInitialRoute();
